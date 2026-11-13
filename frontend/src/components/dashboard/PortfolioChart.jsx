@@ -13,7 +13,7 @@ export default function PortfolioChart({ portfolio }) {
   const hasHistory = snapshots.length >= 2;
 
   return (
-    <div className="glass-card" style={{ padding: '24px 24px 18px', height: '100%' }}>
+    <div className="glass-card" style={{ padding: '22px 20px 18px', height: '100%', minWidth: 0 }}>
       {/* Top Header */}
       <div
         style={{
@@ -21,10 +21,12 @@ export default function PortfolioChart({ portfolio }) {
           alignItems: 'flex-start',
           justifyContent: 'space-between',
           marginBottom: '16px',
+          flexWrap: 'wrap',
+          gap: '14px',
         }}
       >
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <div style={{ fontSize: '11px', color: '#7e7a9c', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
               Account Valuation
             </div>
@@ -35,10 +37,10 @@ export default function PortfolioChart({ portfolio }) {
               {hasHistory ? `SQLite History (${snapshots.length} snapshots)` : 'Live Valuation'}
             </span>
           </div>
-          <div style={{ fontSize: '28px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em', marginTop: '4px' }}>
+          <div style={{ fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em', marginTop: '4px' }}>
             {formatPaiseToINR(portfolio.total_account_value)}
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px', flexWrap: 'wrap' }}>
             <span
               className={`pill-badge ${isPositive ? 'pill-green' : 'pill-red'}`}
               style={{ fontSize: '11px', padding: '3px 8px' }}
@@ -51,14 +53,15 @@ export default function PortfolioChart({ portfolio }) {
         </div>
 
         {/* Breakdown Chips */}
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           <div
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              padding: '8px 12px',
+              padding: '6px 12px',
               borderRadius: '10px',
               border: '1px solid rgba(255, 255, 255, 0.05)',
               textAlign: 'right',
+              flex: '1 1 auto',
             }}
           >
             <div style={{ fontSize: '10px', color: '#7a7698', textTransform: 'uppercase' }}>Cash Balance</div>
@@ -69,10 +72,11 @@ export default function PortfolioChart({ portfolio }) {
           <div
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              padding: '8px 12px',
+              padding: '6px 12px',
               borderRadius: '10px',
               border: '1px solid rgba(255, 255, 255, 0.05)',
               textAlign: 'right',
+              flex: '1 1 auto',
             }}
           >
             <div style={{ fontSize: '10px', color: '#7a7698', textTransform: 'uppercase' }}>Invested Holdings</div>
@@ -84,7 +88,7 @@ export default function PortfolioChart({ portfolio }) {
       </div>
 
       {/* Chart Area or Empty State */}
-      <div style={{ width: '100%', height: '180px', marginTop: '10px' }}>
+      <div style={{ width: '100%', height: '180px', marginTop: '10px', minWidth: 0 }}>
         {hasHistory ? (
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart

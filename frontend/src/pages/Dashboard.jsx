@@ -26,8 +26,8 @@ export default function Dashboard() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-      {/* Hero Header Section (Directly from reference screenshot) */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {/* Hero Header Section */}
       <div>
         <div
           style={{
@@ -37,6 +37,7 @@ export default function Dashboard() {
             fontSize: '12px',
             color: '#8b87a8',
             marginBottom: '6px',
+            flexWrap: 'wrap',
           }}
         >
           <span
@@ -47,6 +48,7 @@ export default function Dashboard() {
               backgroundColor: '#10b981',
               boxShadow: '0 0 8px #10b981',
               display: 'inline-block',
+              flexShrink: 0,
             }}
           />
           <span>Last update: {lastUpdateTime ? formatRelativeTime(lastUpdateTime) : 'Just now'}</span>
@@ -55,28 +57,20 @@ export default function Dashboard() {
         </div>
 
         <h1
+          className="page-title"
           style={{
-            fontSize: '34px',
-            fontWeight: 800,
-            letterSpacing: '-0.03em',
-            color: '#ffffff',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '10px',
+            flexWrap: 'wrap',
           }}
         >
           Live Market Updates 📈
         </h1>
       </div>
 
-      {/* Featured Stock Cards (Grid matching screenshot's top card row) */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '20px',
-        }}
-      >
+      {/* Featured Stock Cards (Responsive Grid) */}
+      <div className="responsive-cards-grid">
         {stocks.slice(0, 4).map((stock) => (
           <StockCard
             key={stock.symbol}
@@ -87,26 +81,20 @@ export default function Dashboard() {
       </div>
 
       {/* Analytics & Operational Row */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-          gap: '20px',
-        }}
-      >
+      <div className="responsive-grid-dashboard-middle">
         {/* Left: Portfolio Growth Chart */}
-        <div style={{ gridColumn: 'span 2' }}>
+        <div style={{ minWidth: 0 }}>
           <PortfolioChart portfolio={portfolio} />
         </div>
 
         {/* Right: Shield Alerts & Simulation Quick View */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', minWidth: 0 }}>
           <RecentAlertsWidget alerts={alerts} />
           <SimulationStatusWidget />
         </div>
       </div>
 
-      {/* Market Overview Table (From bottom half of screenshot) */}
+      {/* Market Overview Table */}
       <MarketTable stocks={stocks} onSelectStock={handleTradeStock} />
     </div>
   );

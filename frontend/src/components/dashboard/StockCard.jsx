@@ -27,6 +27,7 @@ export default function StockCard({ stock, onTradeClick }) {
         justifyContent: 'space-between',
         minHeight: '230px',
         cursor: 'pointer',
+        minWidth: 0,
       }}
       onClick={() => onTradeClick && onTradeClick(stock)}
     >

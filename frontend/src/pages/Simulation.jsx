@@ -91,14 +91,14 @@ export default function Simulation() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
       <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
           <span className="pill-badge pill-purple">C++ BOT ENGINE</span>
           <span style={{ fontSize: '12px', color: '#8b87a8' }}>Multi-Threaded Strategy Coordination</span>
         </div>
-        <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+        <h1 className="page-title">
           Bot Simulation Center
         </h1>
-        <p style={{ fontSize: '13px', color: '#8b87a8', marginTop: '2px' }}>
+        <p className="page-subtitle">
           Simulates authentic market participants through the TradingEngine to trigger Shield pattern recognition.
         </p>
       </div>
@@ -115,7 +115,7 @@ export default function Simulation() {
           gap: '20px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
           <div
             style={{
               width: '52px',
@@ -130,13 +130,14 @@ export default function Simulation() {
               color: '#ffffff',
               boxShadow: simulation.is_running ? '0 0 24px rgba(16, 185, 129, 0.4)' : 'none',
               transition: 'all 0.3s ease',
+              flexShrink: 0,
             }}
           >
             <Bot size={26} />
           </div>
 
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff' }}>
                 Engine Status: {simulation.is_running ? 'RUNNING' : 'STOPPED'}
               </h3>
@@ -152,7 +153,7 @@ export default function Simulation() {
         </div>
 
         {/* Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
           {/* Tick Interval Tuning */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginRight: '6px' }}>
             <span style={{ fontSize: '11px', color: '#7e7a9c', textTransform: 'uppercase' }}>Tick Pace:</span>
@@ -207,8 +208,8 @@ export default function Simulation() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '16px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+          gap: '14px',
         }}
       >
         <div className="glass-card" style={{ padding: '18px', textAlign: 'center' }}>
@@ -259,8 +260,8 @@ export default function Simulation() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '20px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gap: '16px',
           }}
         >
           {botProfiles.map((bot) => {

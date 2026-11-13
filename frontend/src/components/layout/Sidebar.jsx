@@ -19,10 +19,11 @@ import {
   ChevronLeft,
   Shield,
   Layers,
+  X,
 } from 'lucide-react';
 import { useTradeShield } from '../../context/useTradeShield';
 
-export default function Sidebar({ collapsed, onToggleCollapse }) {
+export default function Sidebar({ collapsed, onToggleCollapse, mobileOpen, onCloseMobile }) {
   const { alerts, simulation, currentTrader } = useTradeShield();
 
   // Active open alerts count with defensive array guard
@@ -75,6 +76,7 @@ export default function Sidebar({ collapsed, onToggleCollapse }) {
 
   return (
     <aside
+      className={`sidebar-root ${mobileOpen ? 'mobile-open' : ''}`}
       style={{
         width: collapsed ? '80px' : '270px',
         minWidth: collapsed ? '80px' : '270px',
@@ -114,64 +116,76 @@ export default function Sidebar({ collapsed, onToggleCollapse }) {
               justifyContent: 'center',
               boxShadow: '0 4px 14px rgba(124, 58, 237, 0.4)',
               color: '#ffffff',
+              flexShrink: 0,
             }}
           >
             <Shield size={20} />
           </div>
 
-          {!collapsed && (
-            <div>
-              <div
-                style={{
-                  fontSize: '17px',
-                  fontWeight: 800,
-                  letterSpacing: '-0.03em',
-                  color: '#ffffff',
-                  lineHeight: 1.1,
-                }}
-              >
-                TradeShield
-              </div>
-              <div
-                style={{
-                  fontSize: '11px',
-                  fontWeight: 500,
-                  color: '#8b87a8',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                AI-Powered Risk Engine
-              </div>
+          <div>
+            <div
+              style={{
+                fontSize: '17px',
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                color: '#ffffff',
+                lineHeight: 1.1,
+              }}
+            >
+              TradeShield
             </div>
-          )}
+            <div
+              style={{
+                fontSize: '11px',
+                fontWeight: 500,
+                color: '#8b87a8',
+                letterSpacing: '-0.01em',
+              }}
+            >
+              AI-Powered Risk Engine
+            </div>
+          </div>
         </div>
 
-        {/* Collapse Button */}
-        <button
-          onClick={onToggleCollapse}
-          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          style={{
-            width: '28px',
-            height: '28px',
-            borderRadius: '8px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            color: '#a78bfa',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-          }}
-        >
-          <ChevronLeft
-            size={16}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {/* Mobile Close Button */}
+          <button
+            onClick={onCloseMobile}
+            className="mobile-close-btn"
+            title="Close sidebar"
+            aria-label="Close sidebar"
+          >
+            <X size={16} />
+          </button>
+
+          {/* Desktop Collapse Button */}
+          <button
+            onClick={onToggleCollapse}
+            className="sidebar-collapse-btn"
+            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             style={{
-              transform: collapsed ? 'rotate(180deg)' : 'none',
-              transition: 'transform 0.3s ease',
+              width: '28px',
+              height: '28px',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              color: '#a78bfa',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
             }}
-          />
-        </button>
+          >
+            <ChevronLeft
+              size={16}
+              style={{
+                transform: collapsed ? 'rotate(180deg)' : 'none',
+                transition: 'transform 0.3s ease',
+              }}
+            />
+          </button>
+        </div>
       </div>
 
       {/* Greeting Header (As shown in screenshot) */}
@@ -238,6 +252,7 @@ export default function Sidebar({ collapsed, onToggleCollapse }) {
                   <NavLink
                     key={item.path}
                     to={item.path}
+                    onClick={() => onCloseMobile && onCloseMobile()}
                     title={collapsed ? item.label : undefined}
                     style={({ isActive }) => ({
                       display: 'flex',

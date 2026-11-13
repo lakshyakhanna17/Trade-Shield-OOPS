@@ -372,3 +372,264 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   transform-origin: center center;
 }
+
+/* ==========================================================================
+   Responsive Architecture (Mobile, Tablet, Laptop, Desktop)
+   ========================================================================== */
+
+/* Layout & Content Containers */
+.main-content-layout {
+  flex: 1;
+  padding: 24px 28px;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Mobile Sidebar Drawer & Overlay */
+.mobile-sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 95;
+  transition: opacity 0.25s ease;
+}
+
+.mobile-menu-btn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  flex-shrink: 0;
+}
+.mobile-menu-btn:hover,
+.mobile-menu-btn:active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-close-btn {
+  display: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.mobile-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+/* Responsive Grids */
+.responsive-grid-2col {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+}
+
+.responsive-grid-trading {
+  display: grid;
+  grid-template-columns: 1.2fr 1.6fr;
+  gap: 24px;
+}
+
+.responsive-grid-portfolio {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+}
+
+.responsive-grid-dashboard-middle {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 20px;
+}
+
+.responsive-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+  gap: 20px;
+}
+
+.responsive-stat-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 16px;
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  border-radius: 10px;
+}
+
+/* Page Header Title Styling */
+.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  color: #8b87a8;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Breakpoints & Media Queries
+   ========================================================================== */
+
+/* Tablet & Mobile Screens (< 1024px) */
+@media (max-width: 1023px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .mobile-close-btn {
+    display: flex;
+  }
+
+  .mobile-sidebar-backdrop.active {
+    display: block;
+  }
+
+  .sidebar-root {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: 100 !important;
+    width: min(280px, 85vw) !important;
+    min-width: min(280px, 85vw) !important;
+    transform: translateX(-100%);
+    box-shadow: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
+  }
+
+  .sidebar-root.mobile-open {
+    transform: translateX(0) !important;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.85) !important;
+  }
+
+  .sidebar-collapse-btn {
+    display: none !important;
+  }
+
+  .responsive-grid-2col,
+  .responsive-grid-trading,
+  .responsive-grid-portfolio,
+  .responsive-grid-dashboard-middle {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+/* Mobile Screens (< 768px) */
+@media (max-width: 767px) {
+  .main-content-layout {
+    padding: 16px 14px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .page-subtitle {
+    font-size: 12px;
+  }
+
+  .responsive-stat-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .responsive-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .glass-card {
+    border-radius: 14px;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal-content {
+    border-radius: 16px;
+    max-width: 100%;
+    padding: 18px !important;
+  }
+
+  /* Make tables readable by maintaining minimum column breathing space */
+  .trade-table {
+    min-width: 580px;
+  }
+
+  .trade-table th,
+  .trade-table td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Small Mobile Screens (< 480px - iPhone SE, small Androids) */
+@media (max-width: 479px) {
+  .main-content-layout {
+    padding: 12px 10px;
+  }
+
+  .responsive-stat-grid-4 {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .mobile-small-hide {
+    display: none !important;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}

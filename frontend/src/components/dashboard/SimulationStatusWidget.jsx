@@ -10,7 +10,7 @@ export default function SimulationStatusWidget() {
   const { simulation, startSimulation, stopSimulation, resetSimulation, isSimActionLoading } = useTradeShield();
 
   return (
-    <div className="glass-card" style={{ padding: '22px 22px 18px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <div className="glass-card" style={{ padding: '22px 22px 18px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minWidth: 0 }}>
       {/* Top Header */}
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>

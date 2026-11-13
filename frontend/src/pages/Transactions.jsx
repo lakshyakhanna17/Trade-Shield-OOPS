@@ -41,16 +41,16 @@ export default function Transactions() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
       <div>
-        <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+        <h1 className="page-title">
           Transactions & Order Audit
         </h1>
-        <p style={{ fontSize: '13px', color: '#8b87a8', marginTop: '2px' }}>
+        <p className="page-subtitle">
           Immutable audit record of all client orders and matched trades executed by the trading engine.
         </p>
       </div>
 
       {/* Main Glass Card */}
-      <div className="glass-card" style={{ padding: '24px' }}>
+      <div className="glass-card" style={{ padding: '24px', minWidth: 0 }}>
         {/* Top Controls: Tabs & Search Filters */}
         <div
           style={{
@@ -63,7 +63,7 @@ export default function Transactions() {
           }}
         >
           {/* Tab Switcher */}
-          <div style={{ display: 'flex', gap: '6px' }}>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             <button
               onClick={() => setActiveTab('ORDERS')}
               className="btn btn-sm"
@@ -93,8 +93,8 @@ export default function Transactions() {
           </div>
 
           {/* Search & Filters */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ position: 'relative', width: '220px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <div style={{ position: 'relative', minWidth: '180px', flex: 1 }}>
               <Search size={14} color="#7e7a9c" style={{ position: 'absolute', left: '10px', top: '11px' }} />
               <input
                 type="text"
@@ -137,7 +137,7 @@ export default function Transactions() {
 
         {/* Tab 1: Orders Table */}
         {activeTab === 'ORDERS' && (
-          <div style={{ overflowX: 'auto' }}>
+          <div className="table-responsive">
             <table className="trade-table">
               <thead>
                 <tr>
@@ -222,7 +222,7 @@ export default function Transactions() {
 
         {/* Tab 2: Executed Trades Table */}
         {activeTab === 'TRADES' && (
-          <div style={{ overflowX: 'auto' }}>
+          <div className="table-responsive">
             <table className="trade-table">
               <thead>
                 <tr>

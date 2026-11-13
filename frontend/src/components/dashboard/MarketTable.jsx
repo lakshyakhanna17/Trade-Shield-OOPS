@@ -38,14 +38,16 @@ export default function MarketTable({ stocks, onSelectStock }) {
   });
 
   return (
-    <div className="glass-card" style={{ padding: '24px 24px 16px' }}>
-      {/* Table Section Header (from screenshot) */}
+    <div className="glass-card" style={{ padding: '20px 20px 14px', minWidth: 0 }}>
+      {/* Table Section Header */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: '20px',
+          marginBottom: '16px',
+          flexWrap: 'wrap',
+          gap: '12px',
         }}
       >
         <div>
@@ -78,7 +80,7 @@ export default function MarketTable({ stocks, onSelectStock }) {
         </div>
 
         {/* Filter Tabs */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
           {['ALL', 'GAINERS', 'LOSERS', 'RISK'].map((tab) => (
             <button
               key={tab}
@@ -88,6 +90,8 @@ export default function MarketTable({ stocks, onSelectStock }) {
                 backgroundColor: filter === tab ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
                 color: filter === tab ? '#ffffff' : '#7e7a9c',
                 border: filter === tab ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid transparent',
+                padding: '6px 12px',
+                fontSize: '12px',
               }}
             >
               {tab === 'ALL' ? 'All Stocks' : tab}
@@ -97,7 +101,7 @@ export default function MarketTable({ stocks, onSelectStock }) {
       </div>
 
       {/* Table */}
-      <div style={{ overflowX: 'auto' }}>
+      <div className="table-responsive">
         <table className="trade-table">
           <thead>
             <tr>

@@ -12,7 +12,7 @@ export default function RecentAlertsWidget({ alerts }) {
   const openAlerts = safeAlerts.filter((a) => a.review_status === 'OPEN').slice(0, 4);
 
   return (
-    <div className="glass-card" style={{ padding: '22px 22px 18px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div className="glass-card" style={{ padding: '22px 22px 18px', height: '100%', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

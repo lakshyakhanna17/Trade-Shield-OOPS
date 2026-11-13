@@ -11,11 +11,11 @@
  */
 
 import { useLocation } from 'react-router-dom';
-import { Home, Search, RefreshCw } from 'lucide-react';
+import { Home, Search, RefreshCw, Menu } from 'lucide-react';
 import { useTradeShield } from '../../context/useTradeShield';
 import { formatPaiseToINR, formatPercent } from '../../utils/formatters';
 
-export default function Topbar() {
+export default function Topbar({ onOpenMobileMenu }) {
   const location = useLocation();
   const {
     stocks,
@@ -94,51 +94,78 @@ export default function Topbar() {
         height: 'var(--topbar-height)',
         backgroundColor: 'rgba(12, 10, 19, 0.75)',
         backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 24px',
+        padding: '0 18px',
         position: 'sticky',
         top: 0,
         zIndex: 40,
-        gap: '20px',
+        gap: '12px',
       }}
     >
-      {/* Breadcrumb (from screenshot) */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '220px' }}>
-        <div
-          style={{
-            width: '26px',
-            height: '26px',
-            borderRadius: '6px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#a78bfa',
-          }}
+      {/* Left Area: Hamburger (Mobile) + Breadcrumb */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
+        {/* Hamburger Menu Toggle on Mobile */}
+        <button
+          onClick={onOpenMobileMenu}
+          className="mobile-menu-btn"
+          title="Open navigation menu"
+          aria-label="Open navigation menu"
         >
-          <Home size={14} />
-        </div>
-        <div style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span style={{ color: '#7e7a9c' }}>{breadcrumb.section}</span>
-          <span style={{ color: '#4d4968' }}>/</span>
-          <span style={{ color: '#ffffff', fontWeight: 600 }}>{breadcrumb.page}</span>
+          <Menu size={18} />
+        </button>
+
+        {/* Breadcrumb */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+          <div
+            style={{
+              width: '26px',
+              height: '26px',
+              borderRadius: '6px',
+              backgroundColor: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#d1d5db',
+              flexShrink: 0,
+            }}
+          >
+            <Home size={13} />
+          </div>
+          <div style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px', minWidth: 0 }}>
+            <span className="mobile-hide" style={{ color: '#7e7a9c', whiteSpace: 'nowrap' }}>{breadcrumb.section}</span>
+            <span className="mobile-hide" style={{ color: '#4d4968' }}>/</span>
+            <span
+              style={{
+                color: '#ffffff',
+                fontWeight: 600,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {breadcrumb.page}
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Compact Live Ticker Strip */}
+      {/* Compact Live Ticker Strip (Desktop & Tablet only) */}
       <div
+        className="mobile-hide"
         style={{
           flex: 1,
           display: 'flex',
           alignItems: 'center',
-          gap: '16px',
+          gap: '12px',
           overflowX: 'auto',
-          padding: '4px 10px',
+          padding: '4px 8px',
           scrollbarWidth: 'none',
+          minWidth: 0,
         }}
       >
         {stocks.slice(0, 6).map((stock) => {
@@ -156,6 +183,7 @@ export default function Topbar() {
                 padding: '4px 10px',
                 borderRadius: '8px',
                 border: '1px solid rgba(255, 255, 255, 0.04)',
+                flexShrink: 0,
               }}
             >
               <span style={{ fontWeight: 700, color: '#c4c0e0' }}>{stock.symbol}</span>
@@ -177,24 +205,25 @@ export default function Topbar() {
       </div>
 
       {/* Right Controls */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        {/* Search Bar */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+        {/* Search Bar (Hidden on small mobile screens to prevent header overflow) */}
         <div
+          className="mobile-small-hide"
           style={{
             position: 'relative',
             display: 'flex',
             alignItems: 'center',
-            width: '190px',
+            width: '160px',
           }}
         >
           <Search
-            size={14}
+            size={13}
             color="#7e7a9c"
             style={{ position: 'absolute', left: '10px', pointerEvents: 'none' }}
           />
           <input
             type="text"
-            placeholder="Search stock, bot..."
+            placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{
@@ -202,7 +231,7 @@ export default function Topbar() {
               backgroundColor: 'rgba(20, 18, 30, 0.9)',
               border: '1px solid rgba(255, 255, 255, 0.08)',
               borderRadius: '999px',
-              padding: '6px 12px 6px 30px',
+              padding: '6px 12px 6px 28px',
               fontSize: '12px',
               color: '#ffffff',
               outline: 'none',
@@ -215,7 +244,14 @@ export default function Topbar() {
           onClick={toggleStandaloneMode}
           className={`pill-badge ${badge.pillClass}`}
           title={badge.title}
-          style={{ cursor: 'pointer', border: 'none', outline: 'none' }}
+          style={{
+            cursor: 'pointer',
+            border: 'none',
+            outline: 'none',
+            padding: '5px 10px',
+            fontSize: '11px',
+            whiteSpace: 'nowrap',
+          }}
         >
           <span
             className="pulse-indicator"
@@ -225,7 +261,8 @@ export default function Topbar() {
               height: '6px',
             }}
           />
-          {badge.label}
+          <span className="mobile-small-hide">{badge.label}</span>
+          <span className="desktop-only">{badge.label}</span>
         </button>
 
         {/* Refresh Button */}
@@ -239,13 +276,14 @@ export default function Topbar() {
             borderRadius: '8px',
             backgroundColor: 'rgba(255, 255, 255, 0.04)',
             border: '1px solid rgba(255, 255, 255, 0.08)',
-            color: '#a78bfa',
+            color: '#d1d5db',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             cursor: isRefreshing ? 'default' : 'pointer',
             opacity: isRefreshing ? 0.75 : 1,
             transition: 'opacity 0.2s ease',
+            flexShrink: 0,
           }}
         >
           <RefreshCw
@@ -259,30 +297,32 @@ export default function Topbar() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: '6px',
             padding: '3px 8px 3px 3px',
             backgroundColor: 'rgba(255, 255, 255, 0.04)',
             borderRadius: '999px',
             border: '1px solid rgba(255, 255, 255, 0.08)',
+            flexShrink: 0,
           }}
         >
           <div
             style={{
-              width: '28px',
-              height: '28px',
+              width: '26px',
+              height: '26px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
+              background: 'linear-gradient(135deg, #4b5563 0%, #1f2937 100%)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 700,
-              fontSize: '12px',
+              fontSize: '11px',
               color: '#ffffff',
             }}
           >
             {currentTrader.name.charAt(0)}
           </div>
-          <span style={{ fontSize: '12px', fontWeight: 600, color: '#e2e0f0' }}>
+          <span className="mobile-small-hide" style={{ fontSize: '12px', fontWeight: 600, color: '#e2e0f0' }}>
             {currentTrader.name.split(' ')[0]}
           </span>
         </div>

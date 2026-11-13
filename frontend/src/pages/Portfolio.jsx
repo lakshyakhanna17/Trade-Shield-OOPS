@@ -34,22 +34,16 @@ export default function Portfolio() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
       <div>
-        <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+        <h1 className="page-title">
           Portfolio & Asset Allocation
         </h1>
-        <p style={{ fontSize: '13px', color: '#8b87a8', marginTop: '2px' }}>
+        <p className="page-subtitle">
           Real-time mark-to-market valuations and equity positions managed by TradeShield.
         </p>
       </div>
 
       {/* Top 4 Metric Cards */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '16px',
-        }}
-      >
+      <div className="responsive-stat-grid-4">
         <div className="glass-card" style={{ padding: '20px' }}>
           <div style={{ fontSize: '11px', color: '#7e7a9c', textTransform: 'uppercase', fontWeight: 600 }}>
             Total Account Value
@@ -119,8 +113,8 @@ export default function Portfolio() {
       </div>
 
       {/* Middle Row: Allocation Donut Chart + Breakdown Legend */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px' }}>
-        <div className="glass-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column' }}>
+      <div className="responsive-grid-portfolio">
+        <div className="glass-card" style={{ padding: '22px 20px', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
           <div style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
             Holdings Allocation
           </div>
@@ -130,7 +124,7 @@ export default function Portfolio() {
             </div>
           ) : (
             <>
-              <div style={{ width: '100%', height: '220px' }}>
+              <div style={{ width: '100%', height: '220px', minWidth: 0 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -175,13 +169,13 @@ export default function Portfolio() {
         </div>
 
         {/* Detailed Positions Table */}
-        <div className="glass-card" style={{ padding: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+        <div className="glass-card" style={{ padding: '22px 20px', minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
             <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff' }}>Stock Holdings</h3>
             <span className="pill-badge pill-neutral">{holdings.length} Positions</span>
           </div>
 
-          <div style={{ overflowX: 'auto' }}>
+          <div className="table-responsive">
             <table className="trade-table">
               <thead>
                 <tr>

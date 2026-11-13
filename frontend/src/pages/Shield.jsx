@@ -92,26 +92,20 @@ export default function Shield() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
       <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
           <span className="pill-badge pill-red">SHIELD INTELLIGENCE ENGINE</span>
           <span style={{ fontSize: '12px', color: '#8b87a8' }}>Sliding-Window Behavioral Analysis</span>
         </div>
-        <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+        <h1 className="page-title">
           Fraud & Risk Monitor
         </h1>
-        <p style={{ fontSize: '13px', color: '#8b87a8', marginTop: '2px' }}>
+        <p className="page-subtitle">
           Real-time pattern surveillance across orders, executions, and algorithmic trader behaviour.
         </p>
       </div>
 
       {/* Top 4 Risk Summary Cards */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '16px',
-        }}
-      >
+      <div className="responsive-stat-grid-4">
         <div className="glass-card" style={{ padding: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ fontSize: '11px', color: '#7e7a9c', textTransform: 'uppercase', fontWeight: 600 }}>
@@ -174,9 +168,9 @@ export default function Shield() {
       </div>
 
       {/* Middle Section: Detection Rules Architecture + Trader Risk Scores */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
+      <div className="responsive-grid-2col">
         {/* Detection Rules Information Card */}
-        <div className="glass-card" style={{ padding: '24px' }}>
+        <div className="glass-card" style={{ padding: '24px', minWidth: 0 }}>
           <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
             Shield Pattern Detection Rules
           </h3>
@@ -230,7 +224,7 @@ export default function Shield() {
         </div>
 
         {/* Trader Risk Leaderboard */}
-        <div className="glass-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column' }}>
+        <div className="glass-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
           <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
             Trader Risk Leaderboard
           </h3>
@@ -307,7 +301,7 @@ export default function Shield() {
       </div>
 
       {/* Live Alerts Incident Table */}
-      <div className="glass-card" style={{ padding: '24px' }}>
+      <div className="glass-card" style={{ padding: '24px', minWidth: 0 }}>
         {/* Table Filter Header */}
         <div
           style={{
@@ -357,7 +351,7 @@ export default function Shield() {
         </div>
 
         {/* Table */}
-        <div style={{ overflowX: 'auto' }}>
+        <div className="table-responsive">
           <table className="trade-table">
             <thead>
               <tr>

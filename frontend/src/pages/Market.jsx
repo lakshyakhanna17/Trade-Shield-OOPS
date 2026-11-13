@@ -46,21 +46,21 @@ export default function Market() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+          <h1 className="page-title">
             NSE Market Intelligence
           </h1>
-          <p style={{ fontSize: '13px', color: '#8b87a8', marginTop: '2px' }}>
+          <p className="page-subtitle">
             Real-time simulated stock prices and trading volumes on the National Stock Exchange of India.
           </p>
         </div>
 
         {/* Filter / Search Bar */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ position: 'relative', width: '220px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', width: 'auto' }}>
+          <div style={{ position: 'relative', width: '220px', minWidth: '170px', flex: '1 1 auto' }}>
             <Search size={14} color="#7e7a9c" style={{ position: 'absolute', left: '12px', top: '12px' }} />
             <input
               type="text"
-              placeholder="Search symbols or names..."
+              placeholder="Search symbols..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="input-field"
@@ -68,7 +68,7 @@ export default function Market() {
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '4px' }}>
+          <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', paddingBottom: '2px', maxWidth: '100%' }}>
             {['ALL', 'GAINERS', 'LOSERS', 'HIGH_VOL'].map((f) => (
               <button
                 key={f}
@@ -78,6 +78,9 @@ export default function Market() {
                   backgroundColor: filterType === f ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
                   color: filterType === f ? '#ffffff' : '#7e7a9c',
                   border: filterType === f ? '1px solid rgba(255,255,255,0.15)' : '1px solid transparent',
+                  whiteSpace: 'nowrap',
+                  padding: '6px 12px',
+                  fontSize: '12px',
                 }}
               >
                 {f === 'HIGH_VOL' ? 'High Volume' : f}
@@ -88,33 +91,34 @@ export default function Market() {
       </div>
 
       {/* Main Market Grid: Selected Stock Chart + All Stocks List */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
+      <div className="responsive-grid-2col">
         {/* Selected Stock Detailed Chart */}
         {selectedStock ? (
-          <div className="glass-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column' }}>
+          <div className="glass-card" style={{ padding: '22px 20px', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
             {/* Stock Title Row */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '18px', flexWrap: 'wrap', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <div
                   style={{
-                    width: '48px',
-                    height: '48px',
+                    width: '46px',
+                    height: '46px',
                     borderRadius: '14px',
                     background: `linear-gradient(135deg, ${selectedStock.accent_color || '#8B5CF6'} 0%, rgba(20, 18, 30, 0.9) 100%)`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 800,
-                    fontSize: '16px',
+                    fontSize: '15px',
                     color: '#ffffff',
                     boxShadow: `0 6px 18px ${selectedStock.accent_color || '#8B5CF6'}44`,
+                    flexShrink: 0,
                   }}
                 >
                   {selectedStock.symbol.slice(0, 2)}
                 </div>
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#ffffff' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                    <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff' }}>
                       {selectedStock.symbol}
                     </h2>
                     <span className="pill-badge pill-neutral">NSE: EQUITIES</span>
@@ -127,7 +131,7 @@ export default function Market() {
               <button
                 onClick={() => navigate('/trading', { state: { preselectStock: selectedStock.symbol } })}
                 className="btn btn-primary"
-                style={{ padding: '10px 18px', gap: '6px' }}
+                style={{ padding: '8px 16px', gap: '6px' }}
               >
                 <Sliders size={15} /> Trade {selectedStock.symbol}
               </button>
@@ -137,13 +141,13 @@ export default function Market() {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(125px, 1fr))',
                 gap: '12px',
-                padding: '16px',
+                padding: '14px',
                 backgroundColor: 'rgba(255, 255, 255, 0.02)',
                 borderRadius: '14px',
                 border: '1px solid rgba(255, 255, 255, 0.05)',
-                marginBottom: '20px',
+                marginBottom: '18px',
               }}
             >
               <div>
@@ -223,7 +227,7 @@ export default function Market() {
               </div>
             </div>
 
-            <div style={{ width: '100%', height: '240px' }}>
+            <div style={{ width: '100%', height: '240px', minWidth: 0 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={selectedStock.history || []} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                   <defs>
