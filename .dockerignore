@@ -1,0 +1,41 @@
+# Version control
+.git
+.gitignore
+.github
+
+# Frontend assets & dependencies
+frontend/node_modules
+frontend/dist
+
+# Build directories & binaries
+backend/build
+build
+cmake-build-*
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Environment variables & local credentials
+.env
+.env.*
+!.env.example
+
+# SQLite database files
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+database/*.db
+database/*.db-journal
+database/*.db-wal
+database/*.db-shm
+
+# Temporary files and scratch directories
+scratch/
+tmp/
+.gemini/
+*.log
+

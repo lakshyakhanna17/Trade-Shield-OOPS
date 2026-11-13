@@ -105,10 +105,10 @@ int main() {
     // Crow application configured with global CORS middleware
     crow::App<crow::CORSHandler> app;
 
-    // Configure CORS globally for local development
+    // Configure CORS globally using the configured origin
     auto& cors = app.get_middleware<crow::CORSHandler>();
     cors.global()
-        .origin("http://localhost:5173")
+        .origin(config.cors_origin)
         .methods(crow::HTTPMethod::Get, crow::HTTPMethod::Post, crow::HTTPMethod::Options)
         .headers("Content-Type", "Authorization");
 
@@ -134,6 +134,7 @@ int main() {
     tradeshield::SimulationController::registerRoutes(app, sim_manager);
 
     std::cout << "TradeShield server starting on " << config.host << ":" << config.port << std::endl;
+    std::cout << "Configured CORS origin: " << config.cors_origin << std::endl;
     std::cout << "Endpoints registered: /api/health, /api/orders, /api/trades, /api/portfolio, /api/positions, /api/stocks, /api/traders, /api/alerts, /api/risk, /api/simulation/start, /api/simulation/stop, /api/simulation/status, /api/simulation/reset" << std::endl;
 
     app.bindaddr(config.host).port(config.port).multithreaded().run();
