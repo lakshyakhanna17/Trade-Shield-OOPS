@@ -63,7 +63,7 @@ target_include_directories(tradeshield_core PUBLIC
 
 target_link_libraries(tradeshield_core PUBLIC
     Crow::Crow
-    SQLite3::SQLite3
+    SQLite::SQLite3
     Threads::Threads
     nlohmann_json::nlohmann_json
 )
